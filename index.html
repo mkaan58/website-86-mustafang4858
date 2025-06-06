@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>The Daily Knead Bakery</title>
+    <meta name="description" content="Warm & Inviting Bakery Website - Handcrafted Delights, Baked with Love.">
+    <meta name="keywords" content="bakery, homemade, pastries, bread, cakes, local, fresh, community">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Replace with your actual EmailJS keys if available
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init("PFATyVVqB6dfozezc");
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            /* Primary Color System */
+            --color-primary: #b7ea48;
+            --color-secondary: #69ea48;
+            --color-accent: #7b48ea;
+
+            /* Background System */
+            --color-bg: #0f172a;
+            --color-card-bg: #1e293b;
+
+            /* Text System */
+            --color-text-primary: #f8fafc;
+            --color-text-secondary: #b0c6dd;
+            --color-text-muted: #6993be;
+
+            /* Border System */
+            --color-border: #475569;
+            --color-border-hover: #64748b;
+
+            /* Interactive States */
+            --color-primary-hover: #c8ef75;
+            --color-secondary-hover: #8eef75;
+
+            /* Status Colors */
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            --color-info: #3b82f6;
+
+            /* Design System */
+            --border-radius: 14px;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* 🎯 GUARANTEED VISIBILITY BASE STYLES */
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease; /* Universal transition for smooth effects */
+        }
+
+        body {
+            background-color: var(--color-bg) !important;
+            color: var(--color-text-primary) !important;
+            font-family: var(--font-body) !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-x: hidden !important; /* Prevents horizontal scroll */
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Adjust for fixed navbar height */
+        }
+
+        /* 🔴 CRITICAL: BUTTON SYSTEM (ZERO TOLERANCE FOR INVISIBLE BUTTONS) */
+        .btn-primary {
+            background-color: var(--color-primary) !important;
+            color: var(--color-bg) !important; /* Text on primary button should be dark */
+            border: 2px solid var(--color-primary) !important;
+            font-weight: 600 !important;
+            padding: 12px 24px !important;
+            border-radius: var(--border-radius) !important;
+            transition: all 0.2s ease !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            cursor: pointer !important;
+            font-size: 16px !important;
+            min-height: 44px !important;
+            min-width: 44px !important;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover) !important;
+            border-color: var(--color-primary-hover) !important;
+            color: var(--color-bg) !important; /* Text on primary button hover should be dark */
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+
+        .btn-secondary {
+            background-color: transparent !important;
+            color: var(--color-primary) !important;
+            border: 2px solid var(--color-primary) !important;
+            font-weight: 600 !important;
+            padding: 12px 24px !important;
+            border-radius: var(--border-radius) !important;
+            transition: all 0.2s ease !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            cursor: pointer !important;
+            font-size: 16px !important;
+            min-height: 44px !important;
+            min-width: 44px !important;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-primary) !important;
+            color: var(--color-bg) !important; /* Text on secondary button hover should be dark */
+            border-color: var(--color-primary) !important;
+        }
+
+        /* 🔴 CRITICAL: NAVIGATION SYSTEM */
+        .navbar {
+            background-color: transparent; /* Initial state, will change on scroll */
+            border-bottom: 1px solid transparent; /* Initial state, will change on scroll */
+            backdrop-filter: blur(0px); /* Initial state, will change on scroll */
+            padding: 16px 0 !important;
+            position: fixed !important; /* Changed from sticky to fixed for consistent scroll behavior */
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: var(--color-card-bg) !important; /* Subtle background color on scroll */
+            border-bottom: 1px solid var(--color-border) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .navbar-brand {
+            color: var(--color-text-primary) !important;
+            font-weight: 700 !important;
+            font-family: var(--font-heading) !important;
+            font-size: 24px !important;
+            text-decoration: none !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--color-text-secondary) !important;
+            font-weight: 500 !important;
+            padding: 8px 16px !important;
+            border-radius: calc(var(--border-radius) / 2) !important;
+            transition: all 0.2s ease !important;
+            text-decoration: none !important;
+            display: block !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--color-primary) !important;
+            background-color: var(--color-card-bg) !important;
+        }
+
+        /* 🔴 CRITICAL: FORM SYSTEM */
+        .form-control {
+            background-color: var(--color-bg) !important;
+            border: 2px solid var(--color-border) !important;
+            color: var(--color-text-primary) !important;
+            border-radius: var(--border-radius) !important;
+            padding: 12px 16px !important;
+            font-size: 16px !important;
+            width: 100% !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .form-control:focus {
+            border-color: var(--color-primary) !important;
+            box-shadow: 0 0 0 3px rgba(183, 234, 72, 0.2) !important; /* Use primary color with opacity */
+            outline: none !important;
+        }
+
+        .form-control::placeholder {
+            color: var(--color-text-muted) !important;
+            opacity: 1 !important;
+        }
+
+        .form-label {
+            color: var(--color-text-primary) !important;
+            font-weight: 600 !important;
+            margin-bottom: 8px !important;
+            display: block !important;
+        }
+
+        /* 🔴 CRITICAL: CARD SYSTEM */
+        .card {
+            background-color: var(--color-card-bg) !important;
+            border: 1px solid var(--color-border) !important;
+            color: var(--color-text-primary) !important;
+            border-radius: var(--border-radius) !important;
+            transition: all 0.3s ease !important;
+            overflow: hidden !important;
+            height: 100% !important; /* For uniform card height */
+            display: flex !important; /* For uniform card height */
+            flex-direction: column !important; /* For uniform card height */
+        }
+
+        .card:hover {
+            border-color: var(--color-border-hover) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+            transform: translateY(-4px) !important;
+        }
+
+        .card-title {
+            color: var(--color-text-primary) !important;
+            font-family: var(--font-heading) !important;
+            font-weight: 700 !important;
+            margin-bottom: 12px !important;
+        }
+
+        .card-text {
+            color: var(--color-text-secondary) !important;
+            line-height: 1.6 !important;
+        }
+
+        .card-body { /* For uniform card height */
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+        }
+
+        /* 🔴 CRITICAL: ICON SYSTEM */
+        .icon {
+            color: var(--color-primary) !important;
+            transition: color 0.2s ease !important;
+        }
+
+        .icon:hover {
+            color: var(--color-primary-hover) !important;
+        }
+
+        /* 🔴 CRITICAL: LINK SYSTEM */
+        a {
+            color: var(--color-primary) !important;
+            text-decoration: none !important; /* Removed underline by default for cleaner look */
+            transition: all 0.2s ease !important;
+        }
+
+        a:hover {
+            color: var(--color-primary-hover) !important;
+            text-decoration: underline !important; /* Add underline on hover for clarity */
+            text-underline-offset: 2px !important;
+        }
+
+        /* 🔴 CRITICAL: HEADING HIERARCHY */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--color-text-primary) !important;
+            font-family: var(--font-heading) !important;
+            font-weight: 700 !important;
+            line-height: 1.2 !important;
+            margin-bottom: 16px !important;
+        }
+
+        h1 { font-size: 48px !important; }
+        h2 { font-size: 36px !important; }
+        h3 { font-size: 28px !important; }
+        h4 { font-size: 24px !important; } /* Added h4 for finer control */
+        h5 { font-size: 1.25rem !important; }
+        h6 { font-size: 1rem !important; }
+
+        /* 🔴 CRITICAL: RESPONSIVE TEXT SCALING */
+        @media (max-width: 1024px) { /* Tablet breakpoint */
+            h1 { font-size: 36px !important; }
+            h2 { font-size: 28px !important; }
+            h3 { font-size: 22px !important; }
+            h4 { font-size: 20px !important; }
+        }
+
+        @media (max-width: 768px) { /* Mobile breakpoint */
+            h1 { font-size: 28px !important; }
+            h2 { font-size: 22px !important; }
+            h3 { font-size: 18px !important; }
+            h4 { font-size: 18px !important; }
+            body { font-size: 16px !important; } /* Base body text size */
+            small { font-size: 14px !important; }
+        }
+
+        /* 🔴 CRITICAL: UTILITY CLASSES */
+        .text-primary-color { color: var(--color-primary) !important; }
+        .text-text-primary { color: var(--color-text-primary) !important; }
+        .text-text-secondary { color: var(--color-text-secondary) !important; }
+        .text-text-muted { color: var(--color-text-muted) !important; }
+        .bg-primary-color { background-color: var(--color-primary) !important; }
+        .bg-bg { background-color: var(--color-bg) !important; }
+        .bg-card-bg { background-color: var(--color-card-bg) !important; }
+        .border-primary-color { border-color: var(--color-primary) !important; }
+
+        /* 🔴 CRITICAL: FOCUS STATES FOR ACCESSIBILITY */
+        button:focus,
+        input:focus,
+        textarea:focus,
+        select:focus,
+        a:focus {
+            outline: 2px solid var(--color-primary) !important;
+            outline-offset: 2px !important;
+        }
+
+        /* 🔴 CRITICAL: HOVER STATES FOR INTERACTIVE ELEMENTS */
+        button,
+        .btn,
+        [role="button"] {
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        button:hover,
+        .btn:hover,
+        [role="button"]:hover {
+            transform: translateY(-1px) !important;
+        }
+
+        /* 🔴 CRITICAL: MOBILE NAVIGATION FIX */
+        .mobile-menu {
+            position: fixed !important;
+            top: 64px !important;
+            right: 0 !important;
+            height: calc(100vh - 64px) !important;
+            width: 280px !important;
+            background-color: var(--color-bg) !important;
+            border-left: 1px solid var(--color-border) !important;
+            transform: translateX(100%) !important;
+            transition: transform 0.3s ease !important;
+            z-index: 999 !important;
+            overflow-y: auto !important;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0) !important;
+        }
+
+        .hamburger {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-around !important;
+            width: 24px !important;
+            height: 24px !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 0 !important;
+        }
+
+        .hamburger span {
+            display: block !important;
+            width: 100% !important;
+            height: 2px !important;
+            background-color: var(--color-text-primary) !important;
+            transition: all 0.3s ease !important;
+            transform-origin: center !important;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px) !important;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0 !important;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px) !important;
+        }
+
+        /* 🔴 CRITICAL: MOBILE TOUCH TARGETS */
+        @media (max-width: 768px) {
+            .btn-primary,
+            .btn-secondary {
+                min-height: 48px !important;
+                min-width: 48px !important;
+                padding: 16px 24px !important;
+                font-size: 16px !important;
+            }
+
+            .nav-link {
+                padding: 16px 20px !important;
+                font-size: 16px !important;
+                display: block !important;
+                border-bottom: 1px solid var(--color-border) !important;
+            }
+
+            .card {
+                margin-bottom: 20px !important;
+            }
+        }
+
+        /* 🔴 CRITICAL: MOBILE FORM FIXES */
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px !important;
+                padding: 16px !important;
+                min-height: 48px !important;
+            }
+
+            textarea.form-control {
+                min-height: 120px !important;
+            }
+        }
+
+        /* 🔴 CRITICAL: UNIFORM CARD HEIGHT SYSTEM */
+        .card-container {
+            display: flex !important;
+            align-items: stretch !important;
+        }
+
+        .portfolio-grid, .services-grid, .team-grid, .gallery-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; /* Adjusted minmax for better responsiveness */
+            gap: 24px !important;
+            align-items: stretch !important;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid, .services-grid, .team-grid, .gallery-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Swiper Styling */
+        .swiper {
+            padding: 20px 0 60px 0 !important;
+            overflow: visible !important;
+        }
+
+        .swiper-pagination {
+            bottom: 10px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: var(--color-text-muted) !important;
+            opacity: 0.5 !important;
+            width: 10px !important;
+            height: 10px !important;
+            margin: 0 4px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: var(--color-primary) !important;
+            opacity: 1 !important;
+            transform: scale(1.3) !important;
+        }
+
+        /* Mobile Navigation Buttons */
+        @media (min-width: 768px) {
+            .swiper-button-next,
+            .swiper-button-prev {
+                color: var(--color-primary) !important;
+                background-color: var(--color-bg) !important;
+                width: 44px !important;
+                height: 44px !important;
+                border-radius: 50% !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+                transition: all 0.3s ease !important;
+                border: 2px solid var(--color-border) !important;
+            }
+
+            .swiper-button-next:hover,
+            .swiper-button-prev:hover {
+                background-color: var(--color-primary) !important;
+                color: var(--color-bg) !important;
+                transform: scale(1.1) !important;
+                border-color: var(--color-primary) !important;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 14px !important;
+                font-weight: bold !important;
+            }
+        }
+
+        /* Hide navigation buttons on mobile */
+        @media (max-width: 767px) {
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none !important;
+            }
+
+            .swiper-pagination {
+                bottom: 20px !important;
+            }
+        }
+
+        /* Typed.js Styling */
+        .typed-container {
+            min-width: 200px !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            display: inline-block; /* Ensure it wraps content */
+        }
+
+        .typed-element {
+            color: var(--color-primary) !important;
+            font-weight: 700 !important;
+            position: relative !important;
+        }
+
+        .typed-cursor {
+            color: var(--color-primary) !important;
+            font-weight: 300 !important;
+            animation: blink 1s infinite !important;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Particles.js Styling */
+        .particles-container {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: -1 !important;
+            pointer-events: none !important;
+        }
+
+        #particles-js {
+            position: absolute !important;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: transparent !important;
+        }
+
+        /* CRITICAL: Mobile optimization - disable particles */
+        @media (max-width: 768px), (prefers-reduced-motion: reduce) {
+            .particles-container {
+                display: none !important;
+            }
+        }
+        /* CRITICAL: Performance optimization for low-end devices - targeting smaller viewports */
+        @media (max-width: 1024px) and (max-height: 768px) {
+            .particles-container {
+                display: none !important;
+            }
+        }
+
+        /* Custom parallax for hero background image */
+        .hero-parallax-bg {
+            background-attachment: fixed; /* For desktop parallax */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Below particles and content */
+        }
+
+        @media (max-width: 768px) {
+            .hero-parallax-bg {
+                background-attachment: scroll; /* Disable parallax on mobile */
+            }
+        }
+
+    </style>
+</head>
+<body class="smooth-scroll bg-bg text-text-primary" x-data="{
+    mobileMenuOpen: false,
+    showBackToTop: false,
+    scrolled: false
+}" x-init="
+    window.addEventListener('scroll', () => {
+        showBackToTop = window.scrollY > 300;
+        scrolled = window.scrollY > 50; // Navbar transparency on scroll
+    });
+">
+
+    <!-- Navigation -->
+    <nav class="navbar" :class="{ 'scrolled': scrolled }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#home" class="navbar-brand text-text-primary" style="color: var(--color-text-primary);">
+                        The Daily Knead
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 navbar-nav">
+                        <a href="#home" class="nav-link">Home</a>
+                        <a href="#about" class="nav-link">About</a>
+                        <a href="#featured-items" class="nav-link">Menu</a>
+                        <a href="#gallery" class="nav-link">Gallery</a>
+                        <a href="#testimonials" class="nav-link">Testimonials</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="hamburger p-2" :class="{ 'active': mobileMenuOpen }" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu md:hidden" :class="{ 'active': mobileMenuOpen }" @click.away="mobileMenuOpen = false">
+            <div class="px-4 py-2 space-y-1 navbar-nav">
+                <a href="#home" @click="mobileMenuOpen = false" class="nav-link block">Home</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="nav-link block">About</a>
+                <a href="#featured-items" @click="mobileMenuOpen = false" class="nav-link block">Menu</a>
+                <a href="#gallery" @click="mobileMenuOpen = false" class="nav-link block">Gallery</a>
+                <a href="#testimonials" @click="mobileMenuOpen = false" class="nav-link block">Testimonials</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="nav-link block">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden text-center py-24">
+        <div id="particles-js" class="particles-container"></div>
+        <div class="hero-parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1511018556340-d16986a1c194?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHw2fHxiYWtlcnklMjBmcmVzaGx5JTIwYmFrZWQlMjBnb29kcyUyMGNsb3NlLXVwJTIwd2FybSUyMGludml0aW5nJTIwcnVzdGljJTIwdHJhZGl0aW9uYWx8ZW58MHwwfHx8MTc0OTE1ODY4NXww&ixlib=rb-4.1.0&q=80&w=1080&w=1200&h=600&fit=crop&crop=center');"></div>
+        <div class="absolute inset-0 bg-bg opacity-70"></div> <!-- Overlay for text readability -->
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-text-primary">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="font-heading text-4xl md:text-6xl font-bold mb-4">
+                    The Daily Knead Bakery
+                </h1>
+                <p class="text-xl md:text-2xl text-text-secondary mb-8 max-w-3xl mx-auto typed-container">
+                    <span id="typed-text" class="typed-element"></span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#featured-items" class="btn-primary">
+                        <i class="fas fa-bread-slice mr-2"></i>
+                        Explore Our Menu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-heading text-text-primary mb-4">Our Story</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    Baking with passion, serving with love.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <img src="https://images.unsplash.com/photo-1471476730017-8169d050fa19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxMHx8YmFkZXJ5JTIwY296eSUyMGludGVyaW9yJTIwd2FybSUyMGxpZ2h0JTIwYmFrZXIlMjBhdCUyMHdvcmUlMjBob21lbWFkZSUyMGZlZWx8ZW58MHwxfHx8MTc0OTE1ODY4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Cozy bakery interior"
+                         class="rounded-2xl shadow-xl w-full max-w-md mx-auto object-cover object-center aspect-square"
+                         loading="lazy">
+                </div>
+
+                <div data-aos="fade-left" data-aos-duration="1000">
+                    <h3 class="font-heading text-text-primary mb-6">Handcrafted Delights, Baked with Love</h3>
+                    <p class="text-text-secondary mb-6 leading-relaxed">
+                        At The Daily Knead, we believe in the magic of traditional baking. Every loaf, pastry, and cake is
+                        made from scratch, using only the freshest, locally-sourced ingredients. Our philosophy is simple:
+                        combine time-honored recipes with a sprinkle of passion to create baked goods that not only satisfy
+                        your cravings but also warm your heart.
+                    </p>
+                    <p class="text-text-secondary mb-6 leading-relaxed">
+                        We're more than just a bakery; we're a community hub where friends gather, families share joy, and
+                        the aroma of fresh bread fills the air. Come experience the difference of truly homemade goodness!
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-primary-color bg-opacity-20 text-primary-color rounded-full text-sm">Traditional Recipes</span>
+                        <span class="px-3 py-1 bg-primary-color bg-opacity-20 text-primary-color rounded-full text-sm">Fresh Ingredients</span>
+                        <span class="px-3 py-1 bg-primary-color bg-opacity-20 text-primary-color rounded-full text-sm">Community Focused</span>
+                        <span class="px-3 py-1 bg-primary-color bg-opacity-20 text-primary-color rounded-full text-sm">Passion for Baking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Items Section -->
+    <section id="featured-items" class="py-20 bg-card-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-heading text-text-primary mb-4">Our Featured Delights</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    A taste of what makes our bakery special. Each item baked to perfection!
+                </p>
+            </div>
+
+            <div class="portfolio-grid lg:grid-cols-3 md:grid-cols-2 gap-8 card-container">
+                <!-- Featured Item 1 -->
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1748971811198-b3252113d0c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwyfHxEZWNhZGVudCUyMGNob2NvbGF0ZSUyMGNha2UlMjBjbG9zZS11cCUyMHJpY2h8ZW58MHx8Mnx8MTc0OTE1ODY5M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Decadent Chocolate Cake"
+                         class="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform"
+                         loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title text-xl">Decadent Chocolate Cake</h3>
+                        <p class="card-text text-text-secondary mb-4">Rich, moist chocolate cake with velvety ganache, perfect for any celebration.</p>
+                        <p class="text-text-primary font-semibold text-lg">$35.00</p>
+                    </div>
+                </div>
+
+                <!-- Featured Item 2 -->
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1535376472810-5d229c65da09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxNXx8Rmxha3klMjBjcm9pc3NhbnQlMjBnb2xkZW4lMjB0ZXh0dXJlJTIwbW9ybmluZyUyMGxpZ2h0fGVufDB8fDF8fDE3NDkxNTg2OTR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Flaky Butter Croissants"
+                         class="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform"
+                         loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title text-xl">Flaky Butter Croissants</h3>
+                        <p class="card-text text-text-secondary mb-4">Golden, crispy on the outside, tender on the inside. A breakfast staple.</p>
+                        <p class="text-text-primary font-semibold text-lg">$3.50 each</p>
+                    </div>
+                </div>
+
+                <!-- Featured Item 3 -->
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1517912191359-67659f8690a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwyM3x8UnVzdGljJTIwc291cmRvdWdoJTIwbG9hZiUyMGFydGlzYW4lMjBjcnVzdCUyMGRldGFpbHN8ZW58MHx8fHwxNzQ5MTU4Njk1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Artisan Sourdough Loaf"
+                         class="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform"
+                         loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title text-xl">Artisan Sourdough Loaf</h3>
+                        <p class="card-text text-text-secondary mb-4">Naturally leavened with a perfect tangy crust and chewy interior.</p>
+                        <p class="text-text-primary font-semibold text-lg">$8.00</p>
+                    </div>
+                </div>
+
+                <!-- Featured Item 4 -->
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1749048574079-5d6a12e6cd0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHw0fHxCYWtlcnklMjBwYXN0cnklMjBkaXNwbGF5JTIwaW52aXRpbmclMjBhYnVuZGFudCUyMHZhcmlldHl8ZW58MHx8Mnx8MTc0OTE1ODY5NXww&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Mixed Berry Danish"
+                         class="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform"
+                         loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title text-xl">Mixed Berry Danish</h3>
+                        <p class="card-text text-text-secondary mb-4">Sweet cream cheese and fresh berries nestled in a delicate pastry.</p>
+                        <p class="text-text-primary font-semibold text-lg">$4.50</p>
+                    </div>
+                </div>
+
+                <!-- Featured Item 5 -->
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1431954770555-aaecfcc450c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxMnx8V2FybSUyMGJsdWViZXJyeSUyMG11ZmZpbnMlMjBjb29saW5nJTIwcmFjayUyMHN0ZWFtfGVufDB8fDF8fDE3NDkxNTg2OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Warm Blueberry Muffins"
+                         class="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform"
+                         loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title text-xl">Warm Blueberry Muffins</h3>
+                        <p class="card-text text-text-secondary mb-4">Loaded with fresh blueberries and a crunchy streusel topping.</p>
+                        <p class="text-text-primary font-semibold text-lg">$3.00 each</p>
+                    </div>
+                </div>
+
+                <!-- Featured Item 6 -->
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwyMXx8RGVsaWNhdGUlMjBmcnVpdCUyMHRhcnQlMjBnbGlzdGVuaW5nJTIwZWxlZ2FudCUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NDkxNTg2OTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Delicate Fruit Tart"
+                         class="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform"
+                         loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title text-xl">Delicate Fruit Tart</h3>
+                        <p class="card-text text-text-secondary mb-4">A buttery crust filled with smooth cream and fresh seasonal fruits.</p>
+                        <p class="text-text-primary font-semibold text-lg">$6.50</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-heading text-text-primary mb-4">Our Gallery</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    A glimpse into our world of freshly baked goods and cozy moments.
+                </p>
+            </div>
+
+            <div class="gallery-grid lg:grid-cols-2 gap-8 card-container">
+                <!-- Gallery Item 1 -->
+                <a href="https://images.unsplash.com/photo-1748725789803-4493e0989157?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwyM3x8QXJ0aXNhbiUyMHNvdXJkb3VnaCUyMGJyZWFkJTIwcnVzdGljJTIwZGlzcGxheXxlbnwwfDB8Mnx8MTc0OTE1ODcwN3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                   class="glightbox card overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1748725789803-4493e0989157?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwyM3x8QXJ0aXNhbiUyMHNvdXJkb3VnaCUyMGJyZWFkJTIwcnVzdGljJTIwZGlzcGxheXxlbnwwfDB8Mnx8MTc0OTE1ODcwN3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Artisan Sourdough Bread Display"
+                         class="w-full h-80 object-cover hover:scale-105 transition-transform group-hover:opacity-75"
+                         loading="lazy">
+                </a>
+
+                <!-- Gallery Item 2 -->
+                <a href="https://images.unsplash.com/photo-1468971050039-be99497410af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxNHx8SW52aXRpbmclMjBiYWtlcnklMjBpbnRlcmlvciUyMHdhcm0lMjBhbWJpZW50JTIwbGlnaHR8ZW58MHwwfDF8fDE3NDkxNTg3MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                   class="glightbox card overflow-hidden" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1468971050039-be99497410af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxNHx8SW52aXRpbmclMjBiYWtlcnklMjBpbnRlcmlvciUyMHdhcm0lMjBhbWJpZW50JTIwbGlnaHR8ZW58MHwwfDF8fDE3NDkxNTg3MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Inviting Bakery Interior"
+                         class="w-full h-80 object-cover hover:scale-105 transition-transform group-hover:opacity-75"
+                         loading="lazy">
+                </a>
+
+                <!-- Gallery Item 3 -->
+                <a href="https://images.unsplash.com/photo-1679951055553-025fd20baa3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxOXx8R29sZGVuJTIwZmxha3klMjBwYXN0cmllcyUyMGRpdmVyc2UlMjBhc3NvcnRtZW50JTIwZGlzcGxheXxlbnwwfDB8fHwxNzQ5MTU4NzA4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                   class="glightbox card overflow-hidden" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1679951055553-025fd20baa3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxOXx8R29sZGVuJTIwZmxha3klMjBwYXN0cmllcyUyMGRpdmVyc2UlMjBhc3NvcnRtZWnyYmFkY29udGVudCUyMGZsdWlkJTIwYmFkZWtlcnklMjBwYXN0cnklMjBkaXNwbGF5JTIwaW52aXRpbmclMjBhYnVuZGFudCUyMHZhcmlldHl8ZW58MHwwfHx8MTc0OTE1ODcwOHww&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Golden Flaky Pastries Display"
+                         class="w-full h-80 object-cover hover:scale-105 transition-transform group-hover:opacity-75"
+                         loading="lazy">
+                </a>
+
+                <!-- Gallery Item 4 -->
+                <a href="https://images.unsplash.com/photo-1748877647712-2ffce1d3864f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxNHx8RWxlZ2FudCUyMGNlbGVicmF0aW9uJTIwY2FrZSUyMGZsb3JhbCUyMGRlY29yYXRpb24lMjBjbG9zZS11cHxlbnwwfDB8Mnx8MTc0OTE1ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080"
+                   class="glightbox card overflow-hidden" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1748877647712-2ffce1d3864f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTkxMzh8MHwxfHNlYXJjaHwxNHx8RWxlZ2FudCUyMGNlbGVicmF0aW9uJTIwY2FrZSUyMGZsb3JhbCUyMGRlY29yYXRpb24lMjBjbG9zZS11cHxlbnwwfDB8Mnx8MTc0OTE1ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080"
+                         alt="Elegant Celebration Cake"
+                         class="w-full h-80 object-cover hover:scale-105 transition-transform group-hover:opacity-75"
+                         loading="lazy">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-card-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-heading text-text-primary mb-4">What Our Customers Say</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    Hear from those who've tasted the Daily Knead difference!
+                </p>
+            </div>
+
+            <div class="swiper testimonials-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Testimonial 1 -->
+                    <div class="swiper-slide">
+                        <div class="card p-8 flex flex-col items-center text-center">
+                            <i class="fas fa-quote-right text-primary-color text-5xl mb-6 opacity-30"></i>
+                            <p class="card-text text-text-secondary mb-6 italic max-w-lg">
+                                "The Daily Knead makes the best sourdough I've ever tasted! It's crusty, chewy, and perfect every time. A true gem in our community."
+                            </p>
+                            <p class="text-text-primary font-semibold text-lg">- Jane Doe</p>
+                            <small class="text-text-muted">Local Food Enthusiast</small>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="swiper-slide">
+                        <div class="card p-8 flex flex-col items-center text-center">
+                            <i class="fas fa-quote-right text-primary-color text-5xl mb-6 opacity-30"></i>
+                            <p class="card-text text-text-secondary mb-6 italic max-w-lg">
+                                "Their croissants are simply divine! Flaky, buttery, and melt in your mouth. I make sure to grab one every morning."
+                            </p>
+                            <p class="text-text-primary font-semibold text-lg">- John Smith</p>
+                            <small class="text-text-muted">Morning Regular</small>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="swiper-slide">
+                        <div class="card p-8 flex flex-col items-center text-center">
+                            <i class="fas fa-quote-right text-primary-color text-5xl mb-6 opacity-30"></i>
+                            <p class="card-text text-text-secondary mb-6 italic max-w-lg">
+                                "Ordered a custom cake for my daughter's birthday, and it was stunning and delicious! The artistry is unmatched."
+                            </p>
+                            <p class="text-text-primary font-semibold text-lg">- Emily White</p>
+                            <small class="text-text-muted">Happy Parent</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-heading text-text-primary mb-4">Get In Touch</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    Have a question or custom order? We'd love to hear from you!
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <h3 class="font-heading text-text-primary mb-8">Reach Out To Us</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary-color bg-opacity-10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope icon text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">Email Us</h4>
+                                <p class="text-text-secondary">info@thedailyknead.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary-color bg-opacity-10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-phone icon text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">Call Us</h4>
+                                <p class="text-text-secondary">+1 (123) 456-7890</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary-color bg-opacity-10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt icon text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">Visit Our Bakery</h4>
+                                <p class="text-text-secondary">123 Bakery Lane, Sweetville, CA 90210</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Social Media -->
+                    <div class="mt-8">
+                        <h4 class="font-semibold text-text-primary mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-card-bg rounded-lg flex items-center justify-center hover:bg-primary-color hover:text-bg transition-all" aria-label="Instagram">
+                                <i class="fab fa-instagram text-text-secondary"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-card-bg rounded-lg flex items-center justify-center hover:bg-primary-color hover:text-bg transition-all" aria-label="Facebook">
+                                <i class="fab fa-facebook-f text-text-secondary"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-card-bg rounded-lg flex items-center justify-center hover:bg-primary-color hover:text-bg transition-all" aria-label="TikTok">
+                                <i class="fab fa-tiktok text-text-secondary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form - EmailJS Playground Compatible -->
+                <div data-aos="fade-left" data-aos-duration="1000">
+                    <div class="bg-card-bg p-8 rounded-2xl shadow-lg">
+                        <h3 class="font-heading text-xl text-text-primary font-bold mb-6">Send Us A Message</h3>
+
+                        <!-- EXACT EmailJS Form Structure -->
+                        <form id="emailjs-form" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="field">
+                                    <label for="name" class="form-label text-text-primary">
+                                        <i class="fas fa-user mr-2"></i>Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        required
+                                        class="form-control"
+                                        placeholder="Your Full Name">
+                                </div>
+                                <div class="field">
+                                    <label for="email" class="form-label text-text-primary">
+                                        <i class="fas fa-envelope mr-2"></i>Email Address
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        required
+                                        class="form-control"
+                                        placeholder="your@email.com">
+                                </div>
+                            </div>
+                            <!-- Subject field removed as per design plan -->
+                            <div class="field">
+                                <label for="message" class="form-label text-text-primary">
+                                    <i class="fas fa-comment mr-2"></i>Message
+                                </label>
+                                <textarea
+                                    name="message"
+                                    id="message"
+                                    required
+                                    rows="5"
+                                    class="form-control resize-none"
+                                    placeholder="Tell us about your order or inquiry..."></textarea>
+                            </div>
+
+                            <!-- Hidden field for recipient email - EmailJS playground style -->
+                            <div class="field hidden">
+                                <input type="hidden" name="to_email" id="to_email" value="mustafang4858@gmail.com">
+                            </div>
+
+                            <button
+                                type="submit"
+                                id="contact-btn"
+                                class="btn-primary w-full">
+                                <span>
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    Send Message
+                                </span>
+                            </button>
+
+                            <!-- Success/Error Messages -->
+                            <div id="success-message" class="hidden text-success text-center py-3 bg-success bg-opacity-20 rounded-lg">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                Message sent successfully! We'll get back to you soon.
+                            </div>
+                            <div id="error-message" class="hidden text-error text-center py-3 bg-error bg-opacity-20 rounded-lg">
+                                <i class="fas fa-exclamation-circle mr-2"></i>
+                                <span id="error-text">Failed to send message. Please try again.</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-bg text-text-secondary py-12 border-t border-color-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Logo & Description -->
+                <div class="md:col-span-1">
+                    <div class="font-heading text-2xl font-bold mb-4 text-primary-color">The Daily Knead</div>
+                    <p class="text-text-secondary mb-6 max-w-md">
+                        Baking happiness, one delicious treat at a time. Crafted with care and passion.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-semibold text-text-primary mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-text-secondary hover:text-primary-color">About Us</a></li>
+                        <li><a href="#featured-items" class="text-text-secondary hover:text-primary-color">Our Menu</a></li>
+                        <li><a href="#gallery" class="text-text-secondary hover:text-primary-color">Gallery</a></li>
+                        <li><a href="#testimonials" class="text-text-secondary hover:text-primary-color">Testimonials</a></li>
+                        <li><a href="#contact" class="text-text-secondary hover:text-primary-color">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h3 class="font-semibold text-text-primary mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-card-bg rounded-full flex items-center justify-center hover:bg-primary-color hover:text-bg transition-colors" aria-label="Instagram">
+                            <i class="fab fa-instagram text-text-secondary"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-card-bg rounded-full flex items-center justify-center hover:bg-primary-color hover:text-bg transition-colors" aria-label="Facebook">
+                            <i class="fab fa-facebook-f text-text-secondary"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-card-bg rounded-full flex items-center justify-center hover:bg-primary-color hover:text-bg transition-colors" aria-label="TikTok">
+                            <i class="fab fa-tiktok text-text-secondary"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-color-border mt-12 pt-8 text-center text-text-muted">
+                <p>&copy; 2024 The Daily Knead. All rights reserved. Baked with ❤️ and passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button
+        x-show="showBackToTop"
+        @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+        class="fixed bottom-8 right-8 btn-primary p-3 rounded-full shadow-lg transition-all z-40"
+        aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- AOS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- GLightbox -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+    <!-- Particles.js (conditionally loaded) -->
+    <script>
+        // Conditionally load particles.js based on device and motion preference
+        if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+            document.body.appendChild(script);
+            script.onload = () => {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 50,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: '#b7ea48' // Primary color
+                        },
+                        shape: {
+                            type: 'circle',
+                            stroke: {
+                                width: 0,
+                                color: '#b7ea48'
+                            }
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#b7ea48', // Primary color
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: {
+                                    opacity: 1
+                                }
+                            },
+                            bubble: {
+                                distance: 400,
+                                size: 40,
+                                duration: 2,
+                                opacity: 8,
+                                speed: 3
+                            },
+                            repulse: {
+                                distance: 100,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 4
+                            },
+                            remove: {
+                                particles_nb: 2
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+            };
+        }
+    </script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true,
+            offset: 50,
+            disable: function() {
+                return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            }
+        });
+
+        // EmailJS Contact Form Handler - Playground Compatible
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('emailjs-form');
+            const btn = document.getElementById('contact-btn');
+            const successMsg = document.getElementById('success-message');
+            const errorMsg = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+
+            if (form && btn) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    // Change button state
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+
+                    // Hide previous messages
+                    successMsg.classList.add('hidden');
+                    errorMsg.classList.add('hidden');
+
+                    // EmailJS send - EXACT playground method
+                    const serviceID = 'service_d1ikm0r'; // Replace with your service ID
+                    const templateID = 'template_y6yjh3h'; // Replace with your template ID
+
+                    emailjs.sendForm(serviceID, templateID, form)
+                        .then(function(response) {
+                            console.log('EmailJS SUCCESS:', response.status, response.text);
+
+                            // Show success message
+                            successMsg.classList.remove('hidden');
+
+                            // Reset form
+                            form.reset();
+
+                            // Reset button
+                            btn.disabled = false;
+                            btn.innerHTML = '<span><i class="fas fa-paper-plane mr-2"></i>Send Message</span>';
+
+                            // Hide success message after 5 seconds
+                            setTimeout(() => {
+                                successMsg.classList.add('hidden');
+                            }, 5000);
+
+                        }, function(error) {
+                            console.log('EmailJS FAILED:', error);
+
+                            // Show error message with details
+                            let errorMessage = 'Failed to send message. Please try again.';
+                            if (error.status === 422) {
+                                errorMessage = 'Invalid template or service configuration.';
+                            } else if (error.status === 412) {
+                                errorMessage = 'Email service authentication error.';
+                            } else if (error.status === 400) {
+                                errorMessage = 'Invalid request. Please check your inputs.';
+                            }
+
+                            errorText.textContent = errorMessage;
+                            errorMsg.classList.remove('hidden');
+
+                            // Reset button
+                            btn.disabled = false;
+                            btn.innerHTML = '<span><i class="fas fa-paper-plane mr-2"></i>Send Message</span>';
+                        });
+                });
+            } else {
+                console.error('EmailJS form elements not found!');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    if (window.Alpine) {
+                        Alpine.store('mobileMenuOpen', false);
+                    }
+                }
+            });
+        });
+
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) { // Offset for sticky nav
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary-color');
+                link.classList.add('text-text-secondary');
+
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('text-text-secondary');
+                    link.classList.add('text-primary-color');
+                }
+            });
+        });
+
+        // Initialize Swiper for Testimonials
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.testimonials-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 15,
+                    },
+                    768: { /* Tablet breakpoint for testimonial cards */
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                },
+                effect: 'slide',
+                speed: 600,
+                touchRatio: 1,
+                threshold: 5,
+                allowTouchMove: true,
+                preventInteractionOnTransition: false,
+                watchOverflow: true,
+                centerInsufficientSlides: true,
+            });
+        });
+
+        // Initialize Typed.js for Hero Section
+        document.addEventListener('DOMContentLoaded', function() {
+            const typedElement = document.getElementById('typed-text');
+            if (typedElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                new Typed('#typed-text', {
+                    strings: [
+                        'Handcrafted Delights, Baked with Love.',
+                        'Freshly Baked Every Morning.',
+                        'Where Taste Meets Tradition.'
+                    ],
+                    typeSpeed: 50,
+                    backSpeed: 30,
+                    backDelay: 2500,
+                    startDelay: 500,
+                    loop: true,
+                    showCursor: true,
+                    cursorChar: '|',
+                    autoInsertCss: true,
+                });
+            } else if (typedElement) {
+                // Fallback for reduced motion or no JS
+                typedElement.textContent = 'Handcrafted Delights, Baked with Love.';
+            }
+        });
+
+        // Initialize GLightbox for Gallery
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = GLightbox({
+                touchNavigation: true,
+                loop: true,
+                autoplayVideos: true,
+                zoomable: true
+            });
+        });
+
+        // Prevent zoom on input focus (iOS fix)
+        document.querySelectorAll('input, textarea, select').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                if (element.style.fontSize !== '16px') { // Check if font size is not already fixed
+                    element.style.fontSize = '16px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
